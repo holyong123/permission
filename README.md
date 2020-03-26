@@ -1,1 +1,1 @@
-# premission
+# permission
