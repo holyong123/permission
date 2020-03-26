@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asset.dao.FaultMapper" >
+  <resultMap id="BaseResultMap" type="com.asset.model.Fault" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fault_title" property="faultTitle" jdbcType="VARCHAR" />
+    <result column="request_type" property="requestType" jdbcType="INTEGER" />
+    <result column="fault_type" property="faultType" jdbcType="INTEGER" />
+    <result column="fault_phenomenon" property="faultPhenomenon" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="fault_solution" property="faultSolution" jdbcType="VARCHAR" />
+    <result column="dealing_people" property="dealingPeople" jdbcType="VARCHAR" />
+    <result column="fault_time" property="faultTime" jdbcType="VARCHAR" />
+    <result column="operate_time" property="operateTime" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fault_title, request_type, fault_type, fault_phenomenon, status, fault_solution, 
+    dealing_people, fault_time, operate_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fault
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fault
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.asset.model.Fault" >
+    insert into fault (id, fault_title, request_type, 
+      fault_type, fault_phenomenon, status, 
+      fault_solution, dealing_people, fault_time, 
+      operate_time, remark)
+    values (#{id,jdbcType=INTEGER}, #{faultTitle,jdbcType=VARCHAR}, #{requestType,jdbcType=INTEGER},
+      #{faultType,jdbcType=INTEGER}, #{faultPhenomenon,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{faultSolution,jdbcType=VARCHAR}, #{dealingPeople,jdbcType=VARCHAR}, #{faultTime,jdbcType=VARCHAR},
+      #{operateTime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <!--useGeneratedKeys="true" keyProperty="id"-->
+  <insert id="insertSelective" parameterType="com.asset.model.Fault" >
+    insert into fault
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="faultTitle != null" >
+        fault_title,
+      </if>
+      <if test="requestType != null" >
+        request_type,
+      </if>
+      <if test="faultType != null" >
+        fault_type,
+      </if>
+      <if test="faultPhenomenon != null" >
+        fault_phenomenon,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="faultSolution != null" >
+        fault_solution,
+      </if>
+      <if test="dealingPeople != null" >
+        dealing_people,
+      </if>
+      <if test="faultTime != null" >
+        fault_time,
+      </if>
+      <if test="operateTime != null" >
+        operate_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="faultTitle != null" >
+        #{faultTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null" >
+        #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="faultType != null" >
+        #{faultType,jdbcType=VARCHAR},
+      </if>
+      <if test="faultPhenomenon != null" >
+        #{faultPhenomenon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="faultSolution != null" >
+        #{faultSolution,jdbcType=VARCHAR},
+      </if>
+      <if test="dealingPeople != null" >
+        #{dealingPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="faultTime != null" >
+        #{faultTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.asset.model.Fault" >
+    update fault
+    <set >
+      <if test="faultTitle != null" >
+        fault_title = #{faultTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null" >
+        request_type = #{requestType,jdbcType=INTEGER},
+      </if>
+      <if test="faultType != null" >
+        fault_type = #{faultType,jdbcType=INTEGER},
+      </if>
+      <if test="faultPhenomenon != null" >
+        fault_phenomenon = #{faultPhenomenon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="faultSolution != null" >
+        fault_solution = #{faultSolution,jdbcType=VARCHAR},
+      </if>
+      <if test="dealingPeople != null" >
+        dealing_people = #{dealingPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="faultTime != null" >
+        fault_time = #{faultTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        operate_time = #{operateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.asset.model.Fault" >
+    update fault
+    set fault_title = #{faultTitle,jdbcType=VARCHAR},
+      request_type = #{requestType,jdbcType=INTEGER},
+      fault_type = #{faultType,jdbcType=INTEGER},
+      fault_phenomenon = #{faultPhenomenon,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      fault_solution = #{faultSolution,jdbcType=VARCHAR},
+      dealing_people = #{dealingPeople,jdbcType=VARCHAR},
+      fault_time = #{faultTime,jdbcType=VARCHAR},
+      operate_time = #{operateTime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" resultType="int">
+    select count(1) from fault
+  </select>
+
+  <select id="faultAllList" resultMap="BaseResultMap" parameterType="com.asset.model.Fault">
+    select id, fault_title, request_type, fault_type, fault_phenomenon, status, fault_solution,
+    dealing_people,  operate_time from  fault
+    where status = #{status}
+    limit #{page.offset}, #{page.pageSize}
+  </select>
+
+  <select id="faultWriteList" resultMap="BaseResultMap" parameterType="com.asset.model.Fault">
+        select * from  fault
+        where  status = #{status}
+         limit #{page.offset}, #{page.pageSize}
+  </select>
+
+
+  <select id="faultHanding" resultMap="BaseResultMap" parameterType="com.asset.model.Fault">
+     select *  from  fault
+    where status = #{status}
+    limit #{page.offset}, #{page.pageSize}
+  </select>
+
+
+
+  <select id="faultDisplayParam" resultMap="BaseResultMap" parameterType="map">
+        select * from fault
+        <where >
+          <if test="requestType > 0" >
+            and  request_type = #{requestType}
+          </if>
+          <if test="faultType > 0" >
+            and fault_type = #{faultType}
+          </if>
+          <if test="status != null" >
+            and status = #{status}
+          </if>
+          <if test="dealingPeople != null" >
+            and dealing_people = #{dealingPeople,jdbcType=VARCHAR}
+          </if>
+        </where>
+         limit #{page.offset}, #{page.pageSize}
+  </select>
+
+
+  <select id="selectStatus" resultMap="BaseResultMap" parameterType="integer">
+    select * from fault
+    WHERE  status = #{status}
+  </select>
+
+
+  <select id="dealing" resultType="string" parameterType="map">
+    select dealing_people  from fault
+    where id = #{id} and  fault_type =#{faultType}
+  </select>
+
+
+</mapper>

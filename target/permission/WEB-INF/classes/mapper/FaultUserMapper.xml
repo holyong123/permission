@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asset.dao.FaultUserMapper" >
+  <resultMap id="BaseResultMap" type="com.asset.model.FaultUser" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="fault_type_id" property="faultTypeId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    type_id, user_id, fault_type_id,username
+  </sql>
+
+
+
+  <select id="count" resultType="int" parameterType="map" >
+      SELECT  count(1) FROM   sys_user  su
+      INNER JOIN  sys_role_user sru
+      ON su.`id` = sru.`user_id`
+      INNER JOIN sys_role sr
+      ON sr.`id`=sru.`role_id`
+      <where>
+          <if test="name != null" >
+              and name = #{name}
+          </if>
+      </where>
+
+  </select>
+
+
+    <select id="countTypeId" resultType="int" parameterType="map" >
+        SELECT count(1) FROM  fault  f
+        INNER JOIN fault_type  ft
+        ON  f.fault_type = ft.fault_type_id
+        INNER JOIN  sys_user  su
+        ON  su.id= ft.user_id
+        INNER JOIN  sys_role_user sru
+        ON su.`id` = sru.`user_id`
+        INNER JOIN sys_role sr
+        ON sr.`id`=sru.`role_id`
+        <where>
+            <if test="name != null" >
+                and name = #{name}
+            </if>
+            <if test="faultTypeId != null" >
+                 and  fault_type_id = #{faultTypeId,jdbcType=INTEGER}
+            </if>
+        </where>
+
+    </select>
+
+
+
+
+  <select id="listByUserRole" resultMap="BaseResultMap"  parameterType="map">
+        SELECT DISTINCT  type_id,fault_type_id,username FROM  fault  f
+          INNER JOIN fault_type  ft
+          ON  f.fault_type = ft.fault_type_id
+          INNER JOIN  sys_user  su
+          ON  su.id= ft.user_id
+          INNER JOIN  sys_role_user sru
+          ON su.`id` = sru.`user_id`
+          INNER JOIN sys_role sr
+          ON sr.`id`=sru.`role_id`
+        <where>
+          <if test="name != null" >
+             and name = #{name}
+          </if>
+          <if test="typeId != null" >
+            and  fault_type_id =#{typeId}
+          </if>
+        </where>
+      limit #{page.offset}, #{page.pageSize}
+  </select>
+
+
+  <select id="listByUserRoleAll" resultMap="BaseResultMap"  parameterType="String">
+        SELECT DISTINCT  su.id,type_id,fault_type_id,username FROM  fault  f
+        INNER JOIN fault_type  ft
+        ON  f.fault_type = ft.fault_type_id
+        INNER JOIN  sys_user  su
+        ON  su.id= ft.user_id
+        INNER JOIN  sys_role_user sru
+        ON su.`id` = sru.`user_id`
+        INNER JOIN sys_role sr
+        ON sr.`id`=sru.`role_id`
+        <where>
+            <if test="name != null" >
+                name = #{name}
+            </if>
+        </where>
+        ORDER BY type_id  asc
+        limit #{page.offset}, #{page.pageSize}
+    </select>
+
+
+   <!-- 模糊查询-->
+  <select id="listByUserRoleCondition" resultMap="BaseResultMap" parameterType="map">
+      SELECT DISTINCT  type_id,fault_type_id,username FROM  fault  f
+      INNER JOIN fault_type  ft
+      ON  f.fault_type = ft.fault_type_id
+      INNER JOIN  sys_user  su
+      ON  su.id= ft.user_id
+      INNER JOIN  sys_role_user sru
+      ON su.`id` = sru.`user_id`
+      INNER JOIN sys_role sr
+      ON sr.`id`=sru.`role_id`
+      <where>
+          <if test="name != null" >
+              and name = #{name}
+          </if>
+          <if test="faultTypeId != null" >
+              and  fault_type_id = #{faultTypeId}
+          </if>
+          <if test="userId != null" >
+              and  ft.user_id = #{userId}
+          </if>
+      </where>
+      limit #{page.offset}, #{page.pageSize}
+  </select>
+
+  <select id="userRole" resultMap="BaseResultMap"  parameterType="String">
+        SELECT  su.id  userId,username FROM  sys_user  su
+        INNER JOIN  sys_role_user sru
+        ON su.`id` = sru.`user_id`
+        INNER JOIN sys_role sr
+        ON sr.`id`=sru.`role_id`
+        WHERE sr.`name` = #{name}
+  </select>
+
+
+   <select id="selectionRequestType" resultMap="BaseResultMap" parameterType="integer" >
+       SELECT DISTINCT username FROM  fault_type  ft
+       INNER JOIN  sys_user  su
+       ON  su.id= ft.user_id
+       INNER JOIN  sys_role_user sru
+       ON su.`id` = sru.`user_id`
+       INNER JOIN sys_role sr
+       ON sr.`id`=sru.`role_id`
+       where  fault_type_id = #{faultTypeId}
+
+   </select>
+
+
+
+</mapper>

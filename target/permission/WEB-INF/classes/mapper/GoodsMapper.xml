@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asset.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.asset.model.Goods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="assetId" property="assetId" jdbcType="VARCHAR" />
+    <result column="applicant" property="applicant" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="operateTime" property="operateTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="usePlace" property="usePlace" jdbcType="VARCHAR" />
+    <result column="wareHouse" property="wareHouse" jdbcType="VARCHAR" />
+    <result column="approxId" property="approxId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, assetId, applicant, remark, operateTime, status, count, usePlace, wareHouse,
+    approxId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.asset.model.Goods" >
+    insert into goods (id, name, assetId,
+      applicant, remark, operateTime,
+      status, count, usePlace,
+      wareHouse, approxId)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{assetId,jdbcType=VARCHAR},
+      #{applicant,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{operateTime,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{usePlace,jdbcType=VARCHAR},
+      #{wareHouse,jdbcType=VARCHAR}, #{approxId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.asset.model.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="assetId != null" >
+        assetId,
+      </if>
+      <if test="applicant != null" >
+        applicant,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="operateTime != null" >
+        operateTime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="usePlace != null" >
+        usePlace,
+      </if>
+      <if test="wareHouse != null" >
+        wareHouse,
+      </if>
+      <if test="approxId != null" >
+        approxId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="assetId != null" >
+        #{assetId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicant != null" >
+        #{applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="usePlace != null" >
+        #{usePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="wareHouse != null" >
+        #{wareHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="approxId != null" >
+        #{approxId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.asset.model.Goods" >
+    update goods
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="assetId != null" >
+        assetId = #{assetId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicant != null" >
+        applicant = #{applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        operateTime = #{operateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="usePlace != null" >
+        usePlace = #{usePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="wareHouse != null" >
+        wareHouse = #{wareHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="approxId != null" >
+        approxId = #{approxId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.asset.model.Goods" >
+    update goods
+    set name = #{name,jdbcType=VARCHAR},
+      assetId = #{assetId,jdbcType=VARCHAR},
+      applicant = #{applicant,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      operateTime = #{operateTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      usePlace = #{usePlace,jdbcType=VARCHAR},
+      wareHouse = #{wareHouse,jdbcType=VARCHAR},
+      approxId = #{approxId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <select id="selectListAll"  parameterType="map" resultMap="BaseResultMap" >
+    select * from  goods
+    limit #{page.offset}, #{page.pageSize}
+  </select>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+      select  * from  goods
+  </select>
+  
+  <select id="selectCount" resultType="int">
+    select count(1)  from  goods
+  </select>
+
+
+  <select id="selectByIdName" resultMap="BaseResultMap" parameterType="map">
+    select * from  goods
+    where
+      <if test="name != null" >
+         name  = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="approxId != null" >
+        and approxId = #{approxId}
+      </if>
+  </select>
+
+
+  <select id="selectLikeByCondition" resultMap="BaseResultMap" parameterType="map">
+    select * from  goods
+    <where>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="applicant != null" >
+        and applicant = #{applicant,jdbcType=VARCHAR}
+      </if>
+      <if test="operateTime != null" >
+        and operateTime = #{operateTime,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null" >
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+    </where>
+    limit #{page.offset}, #{page.pageSize}
+
+  </select>
+
+
+  <select id="selectExcelData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from goods
+  </select>
+
+
+
+
+</mapper>
